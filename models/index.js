@@ -36,6 +36,7 @@ db.User = require('./user')(sequelize, Sequelize);
 db.Menu = require('./menu')(sequelize, Sequelize);
 db.Order = require('./order')(sequelize, Sequelize);
 db.Complete = require('./complete')(sequelize, Sequelize);
+db.Count = require('./count')(sequelize, Sequelize);
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
