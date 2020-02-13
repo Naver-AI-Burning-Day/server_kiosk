@@ -14,6 +14,8 @@ router.post('/', async (req, res, next) => {
     let data = await chatbot.answerText(req.body.text);
 
     console.log(data);
+
+    return res.json(JSON.parse(JSON.stringify(data)));
 });
 
 module.exports = router;
