@@ -8,6 +8,7 @@ const mime = require('mime');
 const NAVER_CLIENT_ID =  '0q5uu7pl8k';
 const NAVER_SECRET = 'H2T5XmmMOKliTVD6o7lhhr8kwjuL0S7PPSI2EG8V';
 
+
 var options = {
     'method': 'POST',
     'url': 'https://naveropenapi.apigw.ntruss.com/voice-premium/v1/tts',
@@ -37,15 +38,12 @@ router.post('/', async (req, res, next) => {
     
     //let data = await tts._getTts(req.body.text);
     //console.log(data);
-    var writeStream = fs.createWriteStream('./tts1.mp3');
+    var writeStream = fs.createWriteStream('./NaverTts/tts1.mp3');
     var request = require('request');
     options.form.text = req.body.text;
     var _req = await request(options);
     _req.pipe(writeStream);
-
-
-    var stream = fs.createReadStream('./tts1.mp3')
-    res.status(200).send({data:stream});
+    res.json({"link":"https://9162eaa9.ngrok.io/mp3/tts1.mp3"});
 
 });
 module.exports = router;
