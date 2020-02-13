@@ -34,7 +34,6 @@ router.post('/', async (req, res, next) => {
     let tmp;
 
     for(let i = 0; i<sendData.length; i++){
-        console.log("NOW!");
         tmp = await Menu.findOne({ where: { id: sendData[i].dataValues.menu_id }});
         returnJson["menu" + i] = tmp.dataValues.name;
         returnJson["count" + i] = sendData[i].dataValues.menu_count;
@@ -50,48 +49,125 @@ const makeComplete = async (sendData) =>{
 }
 
 const find = async (data, req) => {
-    if(data.entities.length == 0){
-        await Order.create({
-            user_id: req.body.id,
-            menu_id: 1,
-            menu_count: 1
-        });
-
-        return 1;
+    if(data.scenario.name == '주문 취소'){
+        if(data.entities.length == 1){
+            const menu = await Menu.findOne({ where: { name:  data.entities[0].word } });
+            const order = await Order.findOne({ 
+                where: { 
+                    user_id: req.body.id,
+                    menu_id: menu.id, 
+                }
+            });
+            console.log(order.menu_count);
+            if(order.menu_count == 1){
+                console.log("파괴합니다.");
+                await Order.destroy({
+                    where: {
+                        user_id: req.body.id,
+                        menu_id: menu.id,
+                    }
+                });
+            } else {
+                console.log("하나 빼겠습니다.");
+                console.log(order.menu_count - 1);
+                await Order.update(
+                    { menu_count: order.menu_count - 1, },
+                    { where: { 
+                        user_id: req.body.id,
+                        menu_id: menu.id,
+                    }}
+                  )
+            }
+            
+    
+            return 2;
+        }
+        else if(data.entities.length == 2){
+            const menu = await Menu.findOne({ where: { name:  data.entities[0].word } });
+            const count = await Count.findOne({ where: { name: data.entities[1].word } });
+        
+            await Order.create({
+                user_id: req.body.id,
+                menu_id: menu.id,
+                menu_count: count.int
+            });
+        
+            return 3;
+        }
     }
-    else if(data.entities.length == 2){
-        const menu = await Menu.findOne({ where: { name:  data.entities[0].word } });
-        const count = await Count.findOne({ where: { name: data.entities[1].word } });
+    else {
+        if(data.entities.length == 0){
+            await Order.create({
+                user_id: req.body.id,
+                menu_id: 1,
+                menu_count: 1
+            });
+    
+            return 1;
+        }
+        else if(data.entities.length == 1){
+            const menu = await Menu.findOne({ where: { name:  data.entities[0].word } });
+            
+            await Order.create({
+                user_id: req.body.id,
+                menu_id: menu.id,
+                menu_count: 1
+            });
+    
+            return 2;
+        }
+        else if(data.entities.length == 2){
+    
+            if(data.entities[1].name == '음식'){
+                const menu1 = await Menu.findOne({ where: { name:  data.entities[0].word } });
+            
+                await Order.create({
+                    user_id: req.body.id,
+                    menu_id: menu1.id,
+                    menu_count: 1
+                });
+    
+                const menu2 = await Menu.findOne({ where: { name:  data.entities[1].word } });
+            
+                await Order.create({
+                    user_id: req.body.id,
+                 menu_id: menu2.id,
+                    menu_count: 1
+                });
+            } else {
+                const menu = await Menu.findOne({ where: { name:  data.entities[0].word } });
+                const count = await Count.findOne({ where: { name: data.entities[1].word } });
         
-        console.log(count);
-        await Order.create({
-            user_id: req.body.id,
-            menu_id: menu.id,
-            menu_count: count.int
-        });
-
-        return 2;
-    }
-    else if(data.entities.length == 4){
-        const menu1 = await Menu.findOne({ where: { name:  data.entities[0].word } });
-        const count1 = await Count.findOne({ where: { name: data.entities[1].word } });
+                await Order.create({
+                    user_id: req.body.id,
+                    menu_id: menu.id,
+                    menu_count: count.int
+                });
         
-        await Order.create({
-            user_id: req.body.id,
-            menu_id: menu1.id,
-            menu_count: count1.int
-        });
-
-        const menu2 = await Menu.findOne({ where: { name:  data.entities[2].word } });
-        const count2 = await Count.findOne({ where: { name: data.entities[3].word } });
-        
-        await Order.create({
-            user_id: req.body.id,
-            menu_id: menu2.id,
-            menu_count: count2.int
-        });
-
-        return 3;
+                return 3;
+            }
+        }
+        else if(data.entities.length == 4){
+            const menu1 = await Menu.findOne({ where: { name:  data.entities[0].word } });
+            const count1 = await Count.findOne({ where: { name: data.entities[1].word } });
+            
+            await Order.create({
+                user_id: req.body.id,
+                menu_id: menu1.id,
+                menu_count: count1.int
+            });
+    
+            const menu2 = await Menu.findOne({ where: { name:  data.entities[2].word } });
+            const count2 = await Count.findOne({ where: { name: data.entities[3].word } });
+            
+            await Order.create({
+                user_id: req.body.id,
+                menu_id: menu2.id,
+                menu_count: count2.int
+            });
+    
+            return 4;
+        }
     }
 }
 
