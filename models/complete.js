@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define('menu', {
-        name:{
+    return sequelize.define('complete', {
+        user_id:{
             type: DataTypes.STRING(5),
             allowNULL: false,
             unique: false,
@@ -10,6 +10,11 @@ module.exports = (sequelize, DataTypes) => {
             allowNULL: false,
             unique: false,
         },
+        menu:{
+            type: DataTypes.TEXT,
+            allowNULL: false,
+            unique: false,
+        }
     }, {
         timestamp: false,
         paranoid: true,

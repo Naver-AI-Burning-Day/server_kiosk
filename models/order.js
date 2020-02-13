@@ -1,12 +1,12 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define('menu', {
-        name:{
-            type: DataTypes.STRING(5),
+    return sequelize.define('order', {
+        user_id:{
+            type: DataTypes.INTEGER(5),
             allowNULL: false,
             unique: false,
         },
-        price:{
-            type: DataTypes.INTEGER(7),
+        menu_id:{
+            type: DataTypes.INTEGER(5),
             allowNULL: false,
             unique: false,
         },

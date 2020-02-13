@@ -31,6 +31,12 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
+//테이블 추가
+db.User = require('./user')(sequelize, Sequelize);
+db.Menu = require('./menu')(sequelize, Sequelize);
+db.Order = require('./order')(sequelize, Sequelize);
+db.Complete = require('./complete')(sequelize, Sequelize);
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
