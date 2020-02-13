@@ -13,16 +13,7 @@ router.post('/', async (req, res, next) => {
     const chatbot = new NaverChatbot(config);
 
     let data = await chatbot.answerText(req.body.text);
-    
-    const name = await find(data, req);
-    console.log(name);
-
-    /*if()*/
-    const sendData = await Order.findAll({
-        where: {
-            user_id: req.body.id,
-        },
-    });
+    console.log(data);
 
     let returnJson = {};
     
