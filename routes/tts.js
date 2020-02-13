@@ -37,7 +37,7 @@ router.post('/', async (req, res, next) => {
     
     //let data = await tts._getTts(req.body.text);
     //console.log(data);
-    var writeStream = fs.createWriteStream('./tts1.mp3');
+    var writeStream = fs.createWriteStream('./NaverTts/tts1.mp3');
     var request = require('request');
     options.form.text = req.body.text;
     var _req = await request(options);

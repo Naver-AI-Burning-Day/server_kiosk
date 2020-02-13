@@ -13,26 +13,38 @@ router.post('/', async (req, res, next) => {
     const chatbot = new NaverChatbot(config);
 
     let data = await chatbot.answerText(req.body.text);
-    console.log(data);
+    
+    const name = await find(data, req);
+
+    const sendData = await Order.findAll({
+        where: {
+            user_id: req.body.id,
+        },
+    });
 
     let returnJson = {};
+    console.log(sendData);
     
-    
-    const test = await Menu.findOne({ where: { id: sendData[0].dataValues.menu_id }});
-    console.log(test.dataValues.name);
-    
-    console.log(sendData.length);
-    let tmp;
-
-    for(let i = 0; i<sendData.length; i++){
-        tmp = await Menu.findOne({ where: { id: sendData[i].dataValues.menu_id }});
-        returnJson["menu" + i] = tmp.dataValues.name;
-        returnJson["count" + i] = sendData[i].dataValues.menu_count;
-        returnJson["price" + i] = tmp.dataValues.price * sendData[i].dataValues.menu_count;
+    if(sendData.length == 0){
+        return res.json({ "menu0" : "메뉴가 비었습니다.", });
     }
-
-    console.log(returnJson);
-    return res.json(JSON.parse(JSON.stringify(returnJson)));
+    else {
+        const test = await Menu.findOne({ where: { id: sendData[0].dataValues.menu_id }});
+        console.log(test.dataValues.name);
+        
+        console.log(sendData.length);
+        let tmp;
+    
+        for(let i = 0; i<sendData.length; i++){
+            tmp = await Menu.findOne({ where: { id: sendData[i].dataValues.menu_id }});
+            returnJson["menu" + i] = tmp.dataValues.name;
+            returnJson["count" + i] = sendData[i].dataValues.menu_count;
+            returnJson["price" + i] = tmp.dataValues.price * sendData[i].dataValues.menu_count;
+        }
+    
+        console.log(returnJson);
+        return res.json(JSON.parse(JSON.stringify(returnJson)));
+    }
 });
 
 const makeComplete = async (sendData) =>{
