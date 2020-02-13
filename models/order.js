@@ -10,6 +10,11 @@ module.exports = (sequelize, DataTypes) => {
             allowNULL: false,
             unique: false,
         },
+        menu_count:{
+            type: DataTypes.INTEGER(5),
+            allowNULL: false,
+            unique: false,
+        },
     }, {
         timestamp: false,
         paranoid: true,
