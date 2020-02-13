@@ -12,7 +12,7 @@ router.post('/', async (req, res, next) => {
     const chatbot = new NaverChatbot(config);
     console.log(req.body.text);
     let data = await chatbot.answerText(req.body.text);
-
+    
     console.log(data);
 
     return res.json(JSON.parse(JSON.stringify(data)));
