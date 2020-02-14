@@ -56,17 +56,17 @@ router.post('/check', async(req, res, next) => {
         money = money + (tmp.dataValues.price * sendData[i].dataValues.menu_count);
     }
 
-    if(data.scenario.name == '주문 완료'){
+    if(data.scenario.name == '주문 완료 및 결제 완료'){
         await Complete.create({
             user_id: req.body.id,
             price: money,
             menu: resStr,
         });
 
-        return res.json({"statue": "Ok"});
+        return res.json({"status": "Ok"});
     }
     else {
-        return res.json({"statue": "Return"});
+        return res.json({"status": "Return"});
     }
 })
 module.exports = router;
