@@ -9,6 +9,8 @@ const usersRouter = require('./routes/users');
 const sendRouter = require('./routes/send');
 const firstRouter = require('./routes/first');
 const ttsRouter = require('./routes/tts');
+const finalRouter = require('./routes/final');
+const checkRouter = require('./routes/check');
 
 
 const app = express();
@@ -34,6 +36,8 @@ app.use('/users', usersRouter);
 app.use('/send', sendRouter);
 app.use('/first', firstRouter);
 app.use('/tts', ttsRouter);
+app.use('/final', finalRouter);
+app.use('/check', checkRouter);
 
 
 // catch 404 and forward to error handler

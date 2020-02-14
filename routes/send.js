@@ -14,7 +14,7 @@ router.post('/', async (req, res, next) => {
 
     let data = await chatbot.answerText(req.body.text);
     
-    const name = await find(data, req);
+    await find(data, req);
 
     const sendData = await Order.findAll({
         where: {
@@ -29,10 +29,6 @@ router.post('/', async (req, res, next) => {
         return res.json({ "menu0" : "메뉴가 비었습니다.", });
     }
     else {
-        const test = await Menu.findOne({ where: { id: sendData[0].dataValues.menu_id }});
-        console.log(test.dataValues.name);
-        
-        console.log(sendData.length);
         let tmp;
     
         for(let i = 0; i<sendData.length; i++){
@@ -46,10 +42,6 @@ router.post('/', async (req, res, next) => {
         return res.json(JSON.parse(JSON.stringify(returnJson)));
     }
 });
-
-const makeComplete = async (sendData) =>{
-    
-}
 
 const find = async (data, req) => {
     if(data.scenario.name == '주문 취소'){

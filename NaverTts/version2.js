@@ -1,4 +1,5 @@
 'use strict';
+var fs = require('fs');
 
 const TTS = class{
     async getSound(text){
@@ -14,7 +15,7 @@ const TTS = class{
               'speaker': 'nara',
               'text': '인투디언논이 최고얌',
               'volume': '0',
-              'speed': '0',
+              'speed': '-1',
               'pitch': '0',
               'emotion': '2'
             }
