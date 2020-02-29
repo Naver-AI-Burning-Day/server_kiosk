@@ -29,8 +29,8 @@
 
 |기능|<center>URL</center>|메소드|Body|Return|
 |:----:|:------|:-----:|:---:|:---:|
-|[유저 생성]()|/first|GET|X|JSON|
-|[챗봇에 메세지 전송]()|/send|POST|JSON|JSON|
+|[유저 생성](https://github.com/Naver-AI-Burning-Day/server_kiosk/blob/master/Doc/UserCreate.md)|/first|GET|X|JSON|
+|[챗봇에 메세지 전송](https://github.com/Naver-AI-Burning-Day/server_kiosk/blob/master/Doc/SendMessageToChatbot.md)|/send|POST|JSON|JSON|
 |[TTS(Clover Premium Voice)]()|/tts|POST|JSON|JSON|
 |[주문내역 확인]()|/final|POST|JSON|JSON|
 |[결제 동의]()|/final/check|POST|JSON|JSON|
