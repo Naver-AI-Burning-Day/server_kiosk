@@ -1,12 +1,9 @@
 var express = require('express');
 var router = express.Router();
-const axios = require('axios');
 const NaverTts = require('../NaverTts/index');
 var fs = require('fs');
-const mime = require('mime');
+
 /* GET home page. */
-const NAVER_CLIENT_ID =  '0q5uu7pl8k';
-const NAVER_SECRET = 'H2T5XmmMOKliTVD6o7lhhr8kwjuL0S7PPSI2EG8V';
 
 
 var options = {

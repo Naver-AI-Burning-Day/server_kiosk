@@ -4,8 +4,6 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 const sendRouter = require('./routes/send');
 const firstRouter = require('./routes/first');
 const ttsRouter = require('./routes/tts');
@@ -31,8 +29,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/mp3', express.static('NaverTts'));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/send', sendRouter);
 app.use('/first', firstRouter);
 app.use('/tts', ttsRouter);
