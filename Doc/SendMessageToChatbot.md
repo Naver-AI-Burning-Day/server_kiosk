@@ -4,7 +4,7 @@
 
 |기능|<center>URL</center>|메소드|Body|Return|
 |:----:|:------|:-----:|:---:|:---:|
-|[챗봇에 메세지 전송]()|/send|POST|JSON|JSON|
+|챗봇에 메세지 전송|/send|POST|JSON|JSON|
 
 
 ## Example

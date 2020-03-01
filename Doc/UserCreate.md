@@ -4,7 +4,7 @@
 
 |기능|<center>URL</center>|메소드|Body|Return|
 |:----:|:------|:-----:|:---:|:---:|
-|[유저 생성]()|/first|GET|X|JSON|
+|유저 생성|/first|GET|X|JSON|
 
 
 ## Example
